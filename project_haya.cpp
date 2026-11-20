@@ -578,7 +578,7 @@ void faseOrientasi() {
     cerita("Gerbang kampus ramai oleh ratusan mahasiswa baru.");
     cerita("Panitia mengumumkan: sesi inti, sesi kenalan, dan sesi sore.");
     dialog(DOSEN, "Selamat datang! Semester ini kalian belajar DDP.");
-    dialog(DOSEN, "Di akhir semester, tiap TIM 3 ORANG membuat proyek C++.");
+    dialog(DOSEN, "Di akhir semester, tiap TIM 4 ORANG membuat proyek C++.");
 
     cout << "\n  Bagaimana caramu menjalani orientasi?" << endl;
     cout << "  [1] Ikut SEMUA sesi & aktif berkenalan   (seru, tapi capek)" << endl;
@@ -589,10 +589,11 @@ void faseOrientasi() {
     cout << endl;
     switch (pilihan) {
         case 1:
-            cerita("Kamu berkenalan dengan " + TEMAN_A + " dan " + TEMAN_B + " dan " + TEMAN_C +" (sekelas denganmu).");
+            cerita("Kamu berkenalan dengan " + TEMAN_A + ", " + TEMAN_B + ", dan " + TEMAN_C +" (sekelas denganmu).");
             cerita("Kontak WhatsApp bertambah, tapi kakimu pegal luar biasa.");
             punyaRelasi = true;
             efek(-15, 5, 0.0);
+
             break;
         case 2:
             cerita("Setelah sesi inti, kamu pulang dan membaca modul DDP.");
@@ -618,7 +619,7 @@ void faseTim() {
     tampilStatus();
     cout << endl;
     cerita("Hari ke-5. " + DOSEN + " membagikan tugas besar semester:");
-    cerita("bentuk TIM 3 ORANG dan bangun 'startup mini' berupa program C++.");
+    cerita("bentuk TIM 4 ORANG dan bangun 'startup mini' berupa program C++.");
     dialog(DOSEN, "Pilih rekan tim dengan bijak. Kerja tim itu soft skill!");
 
     cout << "\n  Bagaimana kamu membentuk tim?" << endl;
@@ -652,7 +653,7 @@ void faseTim() {
                 timSolid = true;
                 efek(-5, 2, 0.0);
             } else {
-                cerita("Dua anggotamu sulit dihubungi dan sering menghilang...");
+                cerita("Tiga anggotamu sulit dihubungi dan sering menghilang...");
                 timPasif = true;
                 efek(-10, 12, 0.0);
             }
