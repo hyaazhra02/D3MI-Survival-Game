@@ -87,13 +87,12 @@ void bersihLayar() {
 #endif
 }
 
-
 const string KAMPUS  = "Universitas Lampung";
 const string DOSEN   = "Pak Dwi";    
 const string ASISTEN = "Kak Arafi";   
-const string TEMAN_A = "Haya";
-const string TEMAN_B = "Renanda";
-const string TEMAN_C = "Daffa ganteng";
+const string TEMAN_A = "Haya gemec";
+const string TEMAN_B = "Renanda imup";
+const string TEMAN_C = "Daffa gantenk";
 
 string namaPemain = "Mahasiswa";
 double ipk        = 4.00;   // awal 4.00, minimal kelulusan 2.00
@@ -574,8 +573,8 @@ void faseOrientasi() {
     cerita("Pagi pertama di " + KAMPUS + ".");
     cerita("Gerbang kampus ramai oleh ratusan mahasiswa baru.");
     cerita("Panitia mengumumkan: sesi inti, sesi kenalan, dan sesi sore.");
-    dialog(DOSEN, "Selamat datang! Semester ini kalian belajar DDP.");
-    dialog(DOSEN, "Di akhir semester, tiap TIM 4 ORANG membuat proyek C++.");
+    dialog(DOSEN, "Ciee masuk UNILA. Selamat bersenang-senang nyak semester 1. PRENGG ");
+    dialog(DOSEN, "Semester akhir nanti kita buat proyek C++ ya. Tim nya 4 orang. jangan ganjil, nanti yang genapin setan");
 
     cout << "\n  Bagaimana caramu menjalani orientasi?" << endl;
     cout << "  [1] Ikut SEMUA sesi & aktif berkenalan   (seru, tapi capek)" << endl;
