@@ -89,7 +89,7 @@ void bersihLayar() {
 
 const string KAMPUS  = "Universitas Lampung";
 const string DOSEN   = "Pak Dwi";    
-const string ASISTEN = "Kak Arafi";   
+const string ASISTEN = "Kak Arafi & Kak Dimas";   
 const string TEMAN_A = "Haya gemec";
 const string TEMAN_B = "Renanda imup";
 const string TEMAN_C = "Daffa gantenk";
@@ -616,7 +616,7 @@ void faseTim() {
     cout << endl;
     cerita("Hari ke-5. " + DOSEN + " membagikan tugas besar semester:");
     cerita("bentuk TIM 4 ORANG dan bangun 'startup mini' berupa program C++.");
-    dialog(DOSEN, "Pilih rekan tim dengan bijak. Kerja tim itu soft skill!");
+    dialog(DOSEN, "Pilih temen yg bisa diajak kerja sama, Jangan yang numpang nama ajaa.");
 
     cout << "\n  Bagaimana kamu membentuk tim?" << endl;
     cout << "  [1] Ajak " << TEMAN_A << " , " << TEMAN_B << ", dan " << TEMAN_C << " (kenalan dari orientasi)";
@@ -751,10 +751,10 @@ void fasePraktikum() {
             break;
         case 2:
             if (ketinggalanInfo) {
-                dialog(ASISTEN, "Hmm... lain kali jangan telat ya. Lihat baris 4.");
+                dialog(ASISTEN, "Hmm... makanya jangan telat. Lihat baris 4 tuh.");
                 efek(-3, 2, 0.0, 0, 1);
             } else {
-                dialog(ASISTEN, "Coba lihat baris 4. Ada yang kelupaan di ujungnya.");
+                dialog(ASISTEN, "Coba lihat baris 4. Apa coba yang salah?.");
                 efek(-3, -3, 0.0, 0, 1);
             }
             break;
@@ -924,8 +924,8 @@ void faseUAS() {
     // Konsekuensi dari menyalin kode di Fase 3 (peluang 40% ketahuan)
     if (pernahContek) {
         if (rand() % 100 < 40) {
-            dialog(DOSEN, "Kode praktikum pertamamu identik dengan milik temanmu.");
-            dialog(DOSEN, "Kita perlu bicara soal integritas akademik.");
+            dialog(DOSEN, "Kok sama persis sama sebelahnya? AI ya? hayoo. atau nyontek temen?.");
+            dialog(DOSEN, "Karena nyontek nilai nya saya kurangi!.");
             penalti += 0.30;
             tambahanStres += 15;
             buzzer(2);
