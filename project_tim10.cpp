@@ -95,10 +95,10 @@ const string TEMAN_B = "Renanda imup";
 const string TEMAN_C = "Daffa gantenk";
 
 string namaPemain = "Mahasiswa";
-double ipk        = 4.00;   // awal 4.00, minimal kelulusan 2.00
-int    energi     = 100;    // 0 - 100 (%)
-int    stres      = 0;      // 0 - 100 (%), 100 = Game Over (burnout)
-int    koin       = 0;      // didapat dari mini-game (Bagian 2)
+double ipk        = 4.00;   
+int    energi     = 100; 
+int    stres      = 0;     
+int    koin       = 0;  
 
 // --- Progres game ---
 int    semesterSekarang = 1;
@@ -406,10 +406,77 @@ void istirahatSebentar() {
     efek(20, -10, 0.0, 0, -1);
 }
 
-void kantinShop() {
-    cout << "\n  " << KUNING << "[Kantin Kampus]" << RESET << endl;
-    cout << "  Kantin sedang direnovasi. Buka lagi di Bagian 2!" << endl;
+void kantinshop (){
+    while (true){
+        judulAdegan("KANTIN KAMPUS",
+                    "Tempat membeli segala kebutuhan mahasiswa");
+        
+        cout << "\n Koin Tersedia: "
+         << KUNING << koin << " koin" << RESET << endl;
+
+        cout << "n\ ==== DAFTAR MENU KANTIN ====\n";
+
+        for (int i = 0; i < JUMLAH_ITEM; i++ ){
+            cout << " [" << i + 1 << "] "
+                << left << setw(22) << namaItem[i]
+                << " Harga: " << hargaItem[i]
+                << " koin"
+                << " | Stok: " << stokItem[i]
+                << endl;
+        }
+        cout << "\n [4] Kembali ke waktu luang" << endl;
+        
+        int pilihan = bacaPilihan(1,4);
+
+        if (pilihan == 4){
+            cout << "\n Kamu meninggalkan kantin. \n";
+            return;
+        }
+
+        int indeks = pilihan - 1;
+        cout << "\n Kamu memilih: "
+            << namaItem[indeks] << endl;
+        
+        cout << " Koin kamu: "
+            << koin << " koin" << endl;
+
+        if (koin >= hargaItem[indeks]) {
+
+            koin -= hargaItem[indeks];
+
+            stokItem[indeks]++;
+
+            cout << HIJAU
+                << "\n PEMBELIAN BERHASIL HAHAYYY"
+                << RESET << endl;
+
+            cout << " item dibeli : "
+                << namaItem[indeks] << endl;
+
+            cout << " stok sekarang: "
+                << stokItem[indeks] << endl;
+
+            cout << " sisa koin: "
+                << koin << " koin" << endl;
+            }else{
+
+                cout << MERAH
+                    << "\n PEMBELIAN GAGAL !"
+                    << RESET << endl;
+
+                cout << " koin tidak mencukupi." << endl;
+
+                 cout << " koin dibutuhkan: "
+                    << hargaItem[indeks] << endl;
+                
+                cout << " koin tersedia: "
+                    << koin << endl;
+             }
+
+             tekanEnter();
+    }
 }
+
 
 void menuWaktuLuang(const string& keterangan) {
     while (true) {
@@ -427,7 +494,7 @@ void menuWaktuLuang(const string& keterangan) {
         switch (pilihan) {
             case 2: tombolKopi();        break;
             case 3: istirahatSebentar(); break;
-            case 4: kantinShop();        break;
+            case 4: kantinshop();        break;
         }
         if (gameOver) return;
         tekanEnter();
