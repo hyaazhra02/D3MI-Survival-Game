@@ -21,27 +21,32 @@ string RESET, MERAH, HIJAU, KUNING, BIRU, UNGU, CYAN, PUTIH, ABU;
 
 void tampilkanLogo() {
     cout << CYAN << R"ASCII(
-         ____   _____    __  __   ___
-        |  _ \ |___ /   |  \/  | |_ _|
-        | | | |  |_ \   | |\/| |  | |
-        | |_| | ___) |  | |  | |  | |
-        |____/ |____/   |_|  |_| |___|
+  ____  _____    _    ____  _     ___ _   _ _____ 
+ |  _ \| ____|  / \  |  _ \| |   |_ _| \ | | ____|
+ | | | |  _|   / _ \ | | | | |    | ||  \| |  _|  
+ | |_| | |___ / ___ \| |_| | |___ | || |\  | |___ 
+ |____/|_____/_/   \_\____/|_____|___|_| \_|_____|
+  ____  _   _ ______     _______     _____  ____  
+ / ___|| | | |  _ \ \   / /_ _\ \   / / _ \|  _ \ 
+ \___ \| | | | |_) \ \ / / | | \ \ / / | | | |_) |
+  ___) | |_| |  _ < \ V /  | |  \ V /| |_| |  _ < 
+ |____/ \___/|_| \_\ \_/  |___|  \_/  \___/|_| \_\
 )ASCII" << RESET;
 
     cout << KUNING << R"ASCII(
-       .------------------------------.
-       |  .------------------------.  |
-       |  | > mulai_kuliah();      |  |
-       |  | > ipk  = 4.00;         |  |
-       |  | > misi = "Sidang TA";  |  |
-       |  '------------------------'  |
-       '------------------------------'
-     /__________________________________\
-    /____________________________________\
+          .------------------------------.
+          |  .------------------------.  |
+          |  | > mulai_kuliah();      |  |
+          |  | > ipk  = 4.00;         |  |
+          |  | > misi = "Sidang TA";  |  |
+          |  '------------------------'  |
+          '------------------------------'
+        /__________________________________\
+       /____________________________________\
 )ASCII" << RESET;
 
-    cout << PUTIH << "\n         STARTUP & ACADEMIC TYCOON" << RESET << endl;
-    cout << HIJAU << "           Mission to Sidang TA" << RESET << endl;
+    cout << PUTIH << "\n            STARTUP & ACADEMIC TYCOON" << RESET << endl;
+    cout << HIJAU << "              Mission to Sidang TA" << RESET << endl;
 }
 
 void aturWarna(bool aktif) {
@@ -95,10 +100,10 @@ const string TEMAN_B = "Renanda imup";
 const string TEMAN_C = "Daffa gantenk";
 
 string namaPemain = "Mahasiswa";
-double ipk        = 4.00;   // awal 4.00, minimal kelulusan 2.00
-int    energi     = 100;    // 0 - 100 (%)
-int    stres      = 0;      // 0 - 100 (%), 100 = Game Over (burnout)
-int    koin       = 0;      // didapat dari mini-game (Bagian 2)
+double ipk        = 4.00;   
+int    energi     = 100; 
+int    stres      = 0;     
+int    koin       = 0;  
 
 // --- Progres game ---
 int    semesterSekarang = 1;
@@ -406,38 +411,77 @@ void istirahatSebentar() {
     efek(20, -10, 0.0, 0, -1);
 }
 
-void kantinShop() {
-    while (true) {
-        judulAdegan("KANTIN KAMPUS", "Tukar koin dengan item penambah stamina & belajar");
-        cout << "  Koin tersedia: " << KUNING << koin << " koin" << RESET << "\n\n";
+void kantinshop (){
+    while (true){
+        judulAdegan("KANTIN KAMPUS",
+                    "Tempat membeli segala kebutuhan mahasiswa");
+        
+        cout << "\n Koin Tersedia: "
+         << KUNING << koin << " koin" << RESET << endl;
 
-        // Menampilkan daftar menu item dari array
-        for (int i = 0; i < JUMLAH_ITEM; i++) {
-            cout << "  [" << i + 1 << "] " << left << setw(20) << namaItem[i]
-                 << " | Harga: " << KUNING << setw(2) << hargaItem[i] << " koin" << RESET
-                 << " | Stok milikmu: " << HIJAU << stokItem[i] << RESET << endl;
+        cout << "\n ==== DAFTAR MENU KANTIN ====\n";
+
+        for (int i = 0; i < JUMLAH_ITEM; i++ ){
+            cout << " [" << i + 1 << "] "
+                << left << setw(22) << namaItem[i]
+                << " Harga: " << hargaItem[i]
+                << " koin"
+                << " | Stok: " << stokItem[i]
+                << endl;
         }
-        cout << "  [4] Kembali ke Waktu Luang" << endl;
+        cout << "\n [4] Kembali ke waktu luang" << endl;
+        
+        int pilihan = bacaPilihan(1,4);
 
-        int pilihan = bacaPilihan(1, 4);
-        if (pilihan == 4) return;
+        if (pilihan == 4){
+            cout << "\n Kamu meninggalkan kantin. \n";
+            return;
+        }
 
-        int indeks = pilihan - 1; // ubah pilihan 1-3 menjadi indeks array 0-2
+        int indeks = pilihan - 1;
+        cout << "\n Kamu memilih: "
+            << namaItem[indeks] << endl;
+        
+        cout << " Koin kamu: "
+            << koin << " koin" << endl;
 
-        // Cek apakah koin cukup untuk membeli item
         if (koin >= hargaItem[indeks]) {
+
             koin -= hargaItem[indeks];
+
             stokItem[indeks]++;
-            cout << HIJAU << "\n  Berhasil membeli 1 " << namaItem[indeks] << "!" << RESET << endl;
-            cout << "  Sisa koin: " << KUNING << koin << RESET
-                 << " | Total stok " << namaItem[indeks] << ": " << stokItem[indeks] << endl;
-        } else {
-            cout << MERAH << "\n  Koin tidak cukup! Butuh " << hargaItem[indeks]
-                 << " koin (koinmu: " << koin << ")." << RESET << endl;
-        }
-        tekanEnter();
+
+            cout << HIJAU
+                << "\n PEMBELIAN BERHASIL HAHAYYY"
+                << RESET << endl;
+
+            cout << " item dibeli : "
+                << namaItem[indeks] << endl;
+
+            cout << " stok sekarang: "
+                << stokItem[indeks] << endl;
+
+            cout << " sisa koin: "
+                << koin << " koin" << endl;
+            }else{
+
+                cout << MERAH
+                    << "\n PEMBELIAN GAGAL !"
+                    << RESET << endl;
+
+                cout << " koin tidak mencukupi." << endl;
+
+                 cout << " koin dibutuhkan: "
+                    << hargaItem[indeks] << endl;
+                
+                cout << " koin tersedia: "
+                    << koin << endl;
+             }
+
+             tekanEnter();
     }
 }
+
 
 void menuWaktuLuang(const string& keterangan) {
     while (true) {
@@ -455,7 +499,7 @@ void menuWaktuLuang(const string& keterangan) {
         switch (pilihan) {
             case 2: tombolKopi();        break;
             case 3: istirahatSebentar(); break;
-            case 4: kantinShop();        break;
+            case 4: kantinshop();        break;
         }
         if (gameOver) return;
         tekanEnter();
@@ -993,6 +1037,40 @@ void semester1() {
     faseUAS();
 }
 
+void miniGameLogikaS2() {
+    judulAdegan("MINI-GAME", "KUIS LOGIKA");
+    cerita("Kamu mengikuti kuis logika pemrograman. ");
+    cerita("jawab pertanyaan dengan benar untu mendapatkan koin!");
+
+
+    cout << "\n soal:";
+    cout << "\n jika int x = 5;";
+    cout << "\n for(int i = 0; i < 3; i++) {";
+    cout << "\n x += 2;";
+    cout << "\n }";
+    cout << "\n berapakah nilai akhir x?\n";
+
+    cout << "\n [1] 7";
+    cout << "\n [2] 9";
+    cout << "\n [3] 11";
+    cout << "\n [4] 15";
+
+    int jawaban;
+    jawaban = bacaPilihan(1, 4);
+
+    if (jawaban == 3) {
+        cerita("jawaban benar! kamu memahami perulangan.");
+        cerita("kamu mendapatkan 20 koin!");
+        koin += 20;
+    } else {
+        cerita("jawaban salah!");
+        cerita("kamu belum mendapatakan koin.");
+    }
+
+    tampilStatus();
+    tekanEnter();
+}
+
 void resetJatahSemester() {
     sisaKopi      = 3;
     sisaIstirahat = 2;
@@ -1027,13 +1105,189 @@ void layarGameOver() {
 }
 
 void semester2() {                       // diganti di BAGIAN 2
-    cout << "\n  " << KUNING << "[Semester 2 akan hadir di Bagian 2]" << RESET << endl;
-    jeda(900);
+    judulAdegan("SEMESTER 2", "PERJALANAN BARU & UJI LOGIKA");
+    tampilStatus();
+    cout << endl;
+    cerita("Selamat datang di Semester 2!");
+    cerita("Tantangan akademik semakin berat, tapi ada peluang mencari koin.");
+    cerita("Kamu harus mengatur waktu, energi, dan kemampuan agar tetap bertahan.");
+    tekanEnter();
+
+    // Memanggil mini-game kuis logika yang sudah dibuat Renanda
+    miniGameLogikaS2();
+    if (gameOver) return;
+
+    // Memberi kesempatan belanja di Kantin Kampus memakai koin dari mini-game
+    menuWaktuLuang("Kuis logika selesai! Waktunya mampir ke Kantin atau istirahat");
+    if (gameOver) return;
+
+    judulAdegan("SEMESTER 2", "SELESAI");
+    tampilStatus();
+    cout << endl;
+    cerita("Kamu berhasil menyelesaikan Semester 2!");
+    cerita("Bersiaplah menghadapi tantangan puncak: Sidang TA di Semester 3.");
+    tekanEnter();
 }
-void semester3() {                       // diganti di BAGIAN 2
-    cout << "\n  " << KUNING << "[Semester 3 akan hadir di Bagian 2]" << RESET << endl;
-    jeda(900);
+// ============================================================================
+//  ALUR CERITA SEMESTER 3 : SIDANG TUGAS AKHIR (COMMIT 8 - HAYA)
+// ============================================================================
+
+void fasePersiapanSidang() {
+    judulAdegan("SEMESTER 3 | FASE 1 dari 3", "H-3 Sidang Tugas Akhir (TA)");
+    tampilStatus();
+    cout << endl;
+    cerita("Tak terasa kamu sudah sampai di penghujung kuliah D3 MI " + KAMPUS + ".");
+    cerita("Tiga hari lagi jadwal Sidang TA untuk proyek '" + namaProyek + "'.");
+
+    // Konsekuensi berantai dari kondisi tim di Semester 1
+    if (timSolid) {
+        cerita("Timmu solid: " + TEMAN_A + ", " + TEMAN_B + ", dan " + TEMAN_C + " aktif bagi tugas.");
+    } else if (timPasif) {
+        cerita("Anggota tim masih kurang responsif, kamu harus ekstra memastikan program aman.");
+    } else if (kerjaSolo) {
+        cerita("Karena terbiasa kerja mandiri, kamu menguasai seluruh baris kodemu sendiri.");
+    }
+
+    cout << "\n  Bagaimana persiapanmu menjelang hari sidang?" << endl;
+    cout << "  [1] Gladi bersih presentasi & uji coba demo program" << endl;
+    cout << "  [2] Rapikan laporan TA & backup file ke GitHub/Drive" << endl;
+    cout << "  [3] Istirahat total agar tidak gugup saat hari-H" << endl;
+
+    int pilihan = bacaPilihan(1, 3);
+    cout << endl;
+    switch (pilihan) {
+        case 1:
+            cerita("Kamu melatih alur penjelasan dan menguji semua input agar tidak crash.");
+            if (skillDebug) {
+                cerita("Pengalaman debugging di Semester 1 bikin kamu cepat menemukan celah bug!");
+                efek(-15, 5, 0.0, 0, 4);
+            } else {
+                efek(-15, 6, 0.0, 0, 3);
+            }
+            break;
+        case 2:
+            cerita("Laporan rapi dan seluruh kode terbaru sudah aman ter-backup.");
+            sudahBackup = true;
+            efek(-10, 3, 0.0, 0, 2);
+            break;
+        case 3:
+            cerita("Kamu memilih menenangkan pikiran. Badan segar, tapi latihan kurang.");
+            efek(10, -8, 0.0, 0, 0);
+            break;
+    }
+    if (gameOver) return;
+    tekanEnter();
+    menuWaktuLuang("Malam terakhir sebelum Sidang TA! Cek energi & stok itemmu.");
 }
+
+void faseRuangSidang() {
+    judulAdegan("SEMESTER 3 | FASE 2 dari 3", "Ruang Sidang: Presentasi & Tanya Jawab");
+    tampilStatus();
+    cout << endl;
+    cerita("Kamu berdiri di depan meja penguji dengan laptop siap demo.");
+    dialog(DOSEN, "Silakan demonstrasikan proyek '" + namaProyek + "' kalian.");
+    dialog(DOSEN, "Jelaskan juga kenapa program ini layak disebut solusi manajemen & IT!");
+
+    cout << "\n  Bagaimana strategimu menghadapi sesi tanya jawab penguji?" << endl;
+    cout << "  [1] Jelaskan alur logika kode, variabel, & percabangan secara runtut" << endl;
+    cout << "  [2] Langsung demo fitur utama & simulasi indikator IoT secara live" << endl;
+    cout << "  [3] Jawab singkat seadanya agar sidang cepat selesai" << endl;
+
+    int pilihan = bacaPilihan(1, 3);
+    cout << endl;
+    switch (pilihan) {
+        case 1:
+            cerita("Kamu membedah fungsi dan alur logika program dengan percaya diri.");
+            if (sudahBacaModul) {
+                cerita("Dasar teori yang kuat membuat jawabanmu sangat terstruktur!");
+                efek(-15, 8, 0.0, 0, 4);
+            } else {
+                efek(-15, 10, 0.0, 0, 3);
+            }
+            break;
+        case 2:
+            cerita("Kamu menjalankan simulasi program langsung di terminal tanpa hambatan.");
+            if (bebanProyek >= 2) {
+                cerita("Kompleksitas ide proyekmu mendapat apresiasi dari penguji!");
+                efek(-12, 7, 0.0, 0, 3);
+            } else {
+                cerita("Demo berjalan lancar meski fiturnya tergolong sederhana.");
+                efek(-10, 6, 0.0, 0, 2);
+            }
+            break;
+        case 3:
+            dialog(DOSEN, "Penjelasannya terlalu singkat, konsepnya kurang tergali.");
+            efek(-5, 14, 0.0, 0, 0);
+            break;
+    }
+    if (gameOver) return;
+    tekanEnter();
+}
+
+void faseYudisium() {
+    judulAdegan("SEMESTER 3 | FASE 3 dari 3", "Keputusan Dewan Penguji & Yudisium");
+    tampilStatus();
+    cout << endl;
+    cerita("Sesi tanya jawab selesai. Kamu menunggu hasil evaluasi di luar ruangan...");
+    cout << endl;
+    loadingBar("Menghitung nilai Sidang TA", 25, 85);
+
+    double perubahanIpk = 0.0;
+    int tambahanStres   = 0;
+
+    cout << "\n  Skor kesiapan sidangmu: " << CYAN << kesiapanUjian << RESET
+         << ABU << "  (5 ke atas = sangat siap)" << RESET << endl;
+
+    if (kesiapanUjian >= 5) {
+        dialog(DOSEN, "Presentasi dan penguasaan kodemu sangat baik. Selamat!");
+        perubahanIpk = 0.05;
+        tambahanStres = -5;
+    } else if (kesiapanUjian >= 3) {
+        dialog(DOSEN, "Program berjalan cukup baik, ada sedikit catatan revisi minor.");
+        perubahanIpk = -0.10;
+        tambahanStres = 5;
+    } else {
+        dialog(DOSEN, "Penguasaan materi dan persiapanmu masih kurang. Banyak revisi!");
+        perubahanIpk = -0.35;
+        tambahanStres = 15;
+        buzzer(1);
+    }
+
+    // Pengaruh kondisi fisik, mental, dan kerja tim
+    if (energi < 25) {
+        cerita("Kamu terlihat kelelahan saat menjawab pertanyaan tambahan penguji.");
+        perubahanIpk -= 0.10;
+    }
+    if (stres >= 75) {
+        cerita("Rasa panik sempat membuatmu salah menjelaskan bagian alur program.");
+        perubahanIpk -= 0.10;
+        tambahanStres += 5;
+    }
+    if (timSolid) {
+        cerita("Kekompakan tim ikut membantu kelancaran demo proyek.");
+        perubahanIpk += 0.05;
+    }
+
+    efek(-10, tambahanStres, perubahanIpk);
+    if (gameOver) return;
+
+    cout << "\n" << CYAN << "  ";
+    garis('=', 44);
+    cout << "   HASIL AKHIR SEMESTER 3 (YUDISIUM)" << endl;
+    cout << "  ";
+    garis('=', 44);
+    cout << RESET;
+    cout << "  Status        : " << HIJAU << "LULUS SIDANG TA" << RESET << endl;
+    cout << "  IPK Akhir     : " << ipk << "  (" << predikatIPK(ipk) << ")" << endl;
+    tekanEnter();
+}
+
+void semester3() {
+    fasePersiapanSidang(); if (gameOver) return;
+    faseRuangSidang();     if (gameOver) return;
+    faseYudisium();
+}
+
 void layarMenang() {                     // diganti di BAGIAN 3
     bersihLayar();
     cout << HIJAU;
